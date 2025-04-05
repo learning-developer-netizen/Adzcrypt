@@ -1,12 +1,17 @@
 import json
 import requests
 import os
+import logging
 from PIL import Image
 from io import BytesIO
 from google import genai
 from fastapi import HTTPException, status
 from sentry_sdk import capture_exception
 from dotenv import load_dotenv
+
+# Configure logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 load_dotenv()   
 
@@ -36,8 +41,8 @@ def analyze_image(image_url: str, prompt: str):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Failed to download image from URL: {image_url}"
             )
-        print("Downloaded image")
-        print("The client is",client)
+        logger.info("Downloaded image")
+        logger.info(f"The client is {client}")
         # Open the image
         image = Image.open(BytesIO(response.content))
 
@@ -46,7 +51,7 @@ def analyze_image(image_url: str, prompt: str):
             model="gemini-2.0-flash",
             contents=[prompt, image]
         )
-        print("Generated response",response)
+        logger.info(f"Generated response: {response}")
         # Extract response content
         response_text = response.text.strip()
         start = response_text.find("{")
