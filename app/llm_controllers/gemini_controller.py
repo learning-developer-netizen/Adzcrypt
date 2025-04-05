@@ -123,7 +123,7 @@ def get_ad_details(image_url: str, brand_id: int = None):
             "Key Message: Summarize the main message the ad is trying to communicate in one concise sentence (or 'None' if unclear).\n"
             "Recommendation: Deliver a precise, impactful recommendation to boost brand growth, customer engagement, and preference."
         )
-        logger.info("The key is",GEMINI_API_KEY)
+        logger.info(f"The key is {GEMINI_API_KEY}")
         # Generate response using Gemini API
         response = client.models.generate_content(
             model="gemini-2.0-flash",
