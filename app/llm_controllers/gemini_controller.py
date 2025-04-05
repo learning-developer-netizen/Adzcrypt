@@ -36,7 +36,8 @@ def analyze_image(image_url: str, prompt: str):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Failed to download image from URL: {image_url}"
             )
-        
+        print("Downloaded image")
+        print("The client is",client)
         # Open the image
         image = Image.open(BytesIO(response.content))
 
@@ -45,7 +46,7 @@ def analyze_image(image_url: str, prompt: str):
             model="gemini-2.0-flash",
             contents=[prompt, image]
         )
-
+        print("Generated response",response)
         # Extract response content
         response_text = response.text.strip()
         start = response_text.find("{")
