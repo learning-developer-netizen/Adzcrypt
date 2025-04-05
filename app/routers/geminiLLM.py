@@ -77,6 +77,6 @@ def health_check():
     logger.info("Health check endpoint called")
     return {
         "status": "healthy",
-        "service": "Elendi-Service-API",
+        "service": "Service-API",
         "version": "1.0.0"
     }
